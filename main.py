@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from typing import List, Optional
 from database_klinik import engine, get_db
 import models
+from mangum import Mangum
 
 # Inisialisasi Aplikasi
 app = FastAPI(title="API Klinik Pintar")
@@ -133,3 +134,5 @@ def create_vital_sign(data: VitalSignCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(baru)
     return baru
+
+handler = Mangum(app)
